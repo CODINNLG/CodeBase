@@ -1,1 +1,1 @@
-print("first commit to check availability")
+print("test for availability")
