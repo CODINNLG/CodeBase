@@ -1,0 +1,11 @@
+mode: work
+dataset: Pile
+file_id: "00"
+src_folder: /opt/data/private/Group1/wpz/data/pile/unzip
+tgt_folder: ""
+record_interval: 5000
+suffix: .jsonl
+domain_map: /opt/data/private/Group1/wpz/data/pile/domain.json
+tokenizer:
+    type: AutoTokenizer
+    name: T5-large
