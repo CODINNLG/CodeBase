@@ -4,8 +4,8 @@
 python run_t5_mlm.py \
 	--output_dir="./t5-base-pretrain-adamW" \
 	--model_type="t5" \
-	--config_name="t5-base" \
-	--tokenizer_name="t5-base" \
+	--config_name="t5-large" \
+	--tokenizer_name="t5-large" \
 	--train_file="pile-base.json" \
 	--preprocessing_num_workers="30" \
 	--validation_split_percentage="0" \
