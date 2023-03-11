@@ -1,4 +1,4 @@
-# Pretrain T5-base (220M Parameters) from scratch on pile
+# Run1: Pretrain T5-base (220M Parameters) from scratch on pile
 model=T5-base, batch_size=8\*16=128, block_size=512, GPU-Mem=19581MiB\*1+19581MiB\*7
 
 T5 details: 
@@ -10,5 +10,5 @@ Time efficiency for training T5-base (220M Parameters) in 34B Tokens in 8\*A100:
 - For T5-base, 1.5s/step, $\text{Time consumed} \approx 1.5 * 2^{19} = 786432s \approx 10 \text{days}$
 - For T5-large, GPU OOM without deepspeed
 
-# Finetune T5-base (220M Parameters) on CNN_DailyMail
+# Run2: Finetune T5-base (220M Parameters) on CNN_DailyMail
 
