@@ -80,7 +80,7 @@ def compute_rouge(eval_preds):
 raw_dataset = load_dataset('csv', data_files='news_summary.csv', split="train")
 column_names = raw_dataset.column_names
 tokenized_dataset = raw_dataset.map(process_data, remove_columns=column_names, num_proc=4, batched=True)
-train_dataset, test_dataset = tokenized_dataset.train_test_split(train_size=0.8, seed=args.seed).values()
+train_dataset, test_dataset = tokenized_dataset.train_test_split(train_size=0.99, seed=args.seed).values()
 train_dataset.save_to_disk("encoded_dataset/train.hf")
 test_dataset.save_to_disk("encoded_dataset/test.hf")
 
@@ -95,6 +95,7 @@ training_args = Seq2SeqTrainingArguments(
     learning_rate=1e-4,
     save_strategy='no',
     predict_with_generate=True,
+    logging_steps=10,
 )
 
 trainer = Seq2SeqTrainer(
