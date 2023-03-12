@@ -52,7 +52,7 @@ from transformers.utils.versions import require_version
 
 
 # Will error if the minimal version of Transformers is not installed. Remove at your own risks.
-# check_min_version("4.27.0.dev0")
+check_min_version("4.27.0.dev0")
 
 require_version("datasets>=1.8.0", "To fix: pip install -r examples/pytorch/summarization/requirements.txt")
 
@@ -236,6 +236,15 @@ class DataTrainingArguments:
         metadata={
             "help": (
                 "Number of beams to use for evaluation. This argument will be passed to ``model.generate``, "
+                "which is used during ``evaluate`` and ``predict``."
+            )
+        },
+    )
+    length_penalty: Optional[float] = field(
+        default=None,
+        metadata={
+            "help": (
+                "Length Penalty to use for evaluation. This argument will be passed to ``model.generate``, "
                 "which is used during ``evaluate`` and ``predict``."
             )
         },
@@ -647,6 +656,9 @@ def main():
     )
     training_args.generation_num_beams = (
         data_args.num_beams if data_args.num_beams is not None else training_args.generation_num_beams
+    )
+    training_args.generation_length_penalty = (
+        data_args.length_penalty if data_args.length_penalty is not None else training_args.generation_length_penalty
     )
 
     # Initialize our Trainer

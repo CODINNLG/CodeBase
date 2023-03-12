@@ -1,0 +1,33 @@
+SAVE_STEPS=1000
+
+deepspeed --num_gpus=8 run_summarization.py \
+    --deepspeed deepspeed_config/ds_config_zero2.json \
+    --model_name_or_path t5-base \
+    --dataset_name cnn_dailymail \
+    --dataset_config "2.0.0" \
+    --source_prefix "summarize: " \
+    --preprocessing_num_workers 16 \
+    --max_source_length 512 \
+    --max_target_length 128 \
+    --logging_strategy steps \
+    --logging_steps 50 \
+    --evaluation_strategy steps \
+    --eval_steps $SAVE_STEPS \
+    --save_strategy steps \
+    --save_steps $SAVE_STEPS \
+    --learning_rate 0.001 \
+    --optim adafactor \
+    --save_total_limit 4 \
+    --metric_for_best_model "rouge2" \
+    --output_dir "./new-tst-summarization" \
+    --overwrite_output_dir \
+    --do_train \
+    --do_eval \
+    --do_predict \
+    --max_steps 262144 \
+    --per_device_train_batch_size=16 \
+    --per_device_eval_batch_size=64 \
+    --predict_with_generate \
+    --num_beams 4 \
+    --length_penalty 0.6 \
+    --seed 42 \

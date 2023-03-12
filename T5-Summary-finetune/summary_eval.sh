@@ -1,0 +1,28 @@
+deepspeed --num_gpus=8 run_summarization.py \
+    --deepspeed z3-inference.json \
+    --model_name_or_path tst-summarization/checkpoint-5000 \
+    --dataset_name cnn_dailymail \
+    --dataset_config "2.0.0" \
+    --source_prefix "summarize: " \
+    --preprocessing_num_workers 16 \
+    --max_source_length 512 \
+    --max_target_length 128 \
+    --logging_strategy steps \
+    --logging_steps 50 \
+    --evaluation_strategy steps \
+    --eval_steps 5000 \
+    --save_strategy steps \
+    --save_steps 5000 \
+    --save_total_limit 4 \
+    --metric_for_best_model "rouge2" \
+    --output_dir ./temp \
+    --overwrite_output_dir \
+    --do_predict \
+    --max_steps 262144 \
+    --per_device_train_batch_size=16 \
+    --per_device_eval_batch_size=64 \
+    --warmup_steps 10000 \
+    --predict_with_generate \
+    --num_beams 4 \
+    --learning_rate 0.00001 \
+    --seed 42 \
