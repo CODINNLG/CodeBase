@@ -17,7 +17,10 @@ results (reported in T5 Paoer): 42.05/20.34/39.40
 results (implementations): 43.76/21.10/30.824
 
 ```bash
-python run_summarization.py \
+SAVE_STEPS=1000
+
+deepspeed --num_gpus=8 run_summarization.py \
+    --deepspeed deepspeed_config/ds_config_zero2.json \
     --model_name_or_path t5-base \
     --dataset_name cnn_dailymail \
     --dataset_config "2.0.0" \
@@ -28,30 +31,30 @@ python run_summarization.py \
     --logging_strategy steps \
     --logging_steps 50 \
     --evaluation_strategy steps \
-    --eval_steps 5000 \
+    --eval_steps $SAVE_STEPS \
     --save_strategy steps \
-    --save_steps 5000 \
+    --save_steps $SAVE_STEPS \
+    --learning_rate 0.001 \
+    --optim adafactor \
     --save_total_limit 4 \
     --metric_for_best_model "rouge2" \
-    --output_dir ./tst-summarization \
+    --output_dir "./new-tst-summarization" \
     --overwrite_output_dir \
     --do_train \
     --do_eval \
     --do_predict \
     --max_steps 262144 \
     --per_device_train_batch_size=16 \
-    --per_device_eval_batch_size=4 \
-    --warmup_steps 10000 \
+    --per_device_eval_batch_size=64 \
     --predict_with_generate \
     --num_beams 4 \
-    --learning_rate 0.00001 \
+    --length_penalty 0.6 \
     --seed 42 \
+
 ```
 
 # To do
 
-- `length_penalty` -> `rouge-L`
-- `adafactor` optimizer and `noam` schedule in pre-train and fine-tune.
-    - compare with AdamW
-    - the consistency of optimizer in pretrain and finetune
-- \+ deepspeed
+- `length_penalty` -> `rouge-L` runing
+- `adafactor` optimizer and `noam` schedule in pre-train and fine-tune. (fine-tune done)
+- \+ deepspeed (done)
