@@ -13,6 +13,7 @@ Time efficiency for training T5-base (220M Parameters) in 34B Tokens in 8\*A100:
 # Run2: Finetune T5-base (220M Parameters) on CNN_DailyMail
 
 results (reported in T5 Paoer): 42.05/20.34/39.40
+
 results (implementations): 43.76/21.10/30.824
 
 ```bash
@@ -49,4 +50,8 @@ python run_summarization.py \
 
 # To do
 
+- `length_penalty` -> `rouge-L`
 - `adafactor` optimizer and `noam` schedule in pre-train and fine-tune.
+    - compare with AdamW
+    - the consistency of optimizer in pretrain and finetune
+- \+ deepspeed
