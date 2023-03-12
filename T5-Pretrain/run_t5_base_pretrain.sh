@@ -2,7 +2,7 @@
 
 
 python run_t5_mlm.py \
-	--output_dir="./t5-base-pretrain-adamW" \
+	--output_dir="./t5-large-pretrain-adamW" \
 	--model_type="t5" \
 	--config_name="t5-large" \
 	--tokenizer_name="t5-large" \
@@ -20,3 +20,4 @@ python run_t5_mlm.py \
     --max_steps="1000000000" \
 	--logging_steps="10" \
 	--save_steps="10000" \
+	--fp16 \
